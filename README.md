@@ -27,7 +27,7 @@ The main package used here to compute image data is `opencv`.
 from cv2 import imread, cvtColor, COLOR_BGR2RGB, COLOR_BGR2GRAY, COLOR_GRAY2RGB, GaussianBlur, imshow, normalize, NORM_MINMAX, threshold, THRESH_BINARY, namedWindow, createTrackbar, imwrite
 from sys import argv
 from matplotlib.pyplot import subplots, tight_layout, savefig, show
-from numpy import histogram, array, zeros, zeros_like, where, sum
+from numpy import histogram, array, zeros, zeros_like, where, sum, round
 from numpy.ma import masked_equal, filled
 ```
 
