@@ -18,6 +18,8 @@ to get the results.
 
 A sample image file `Histogram+Edge.bmp` in this directory is used as the example for the following description.
 
+![](Histogram+Edge.bmp)
+
 ## Histogram Equalization
 The main package used here to compute image data is `opencv`.
 
