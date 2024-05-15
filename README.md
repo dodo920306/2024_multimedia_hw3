@@ -57,18 +57,15 @@ First, I simply read in the input image, show it, convert it to grayscale, and m
     axes[1][0].set_title('Histogram of Original Grayscale')
 ```
 
-Then, I apply the Histogram Equalization.
+Then, I apply the Histogram Equalization by
 
 ```python
-    cdf = y.cumsum() # cumulative sum
-    cdf_m = masked_equal(cdf, 0) # exclude 0
-    # Normalization:
-    # For each cdf_m element, subtract it with the minimum of cdf_m, multiply it with 255, and
-    # divide it with the range of cdf_m.
-    cdf_m = (cdf_m - cdf_m.min()) * 255 / (cdf_m.max() - cdf_m.min())
-    cdf = filled(cdf_m, 0).astype('uint8') # Give the 0 back.
+    # Histogram Equalization
+    pdf = y / sum(y)
+    y_normalized = pdf * 255
+    cdf = round(y_normalized.cumsum()).astype('uint8')
 
-    # Now, Histogram Equalization of cimg is cdf[cimg].
+    # Now, cdf can act like a map, so the Histogram Equalization of cimg is cdf[cimg].
     img = cdf[cimg]
     axes[0][1].imshow(cvtColor(img, COLOR_GRAY2RGB))
     axes[0][1].set_title('Equalized')
@@ -92,7 +89,7 @@ The result looks like this
 
 ## Edge Detection
 
-After the image was histogram equalized, I apply Edge Detection by smoothing it, convolute it with sobel x and sobel y matrices, and normalize it.
+After the image was histogram equalized, I apply Edge Detection by smoothing it, convolute it with sobel x and sobel y matrices, prevent it from overflowing, and normalize it.
 
 ```python
     # Edge Detection

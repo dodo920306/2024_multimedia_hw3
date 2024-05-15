@@ -1,7 +1,7 @@
 from cv2 import imread, cvtColor, COLOR_BGR2RGB, COLOR_BGR2GRAY, COLOR_GRAY2RGB, GaussianBlur, imshow, normalize, NORM_MINMAX, threshold, THRESH_BINARY, namedWindow, createTrackbar, imwrite
 from sys import argv
 from matplotlib.pyplot import subplots, tight_layout, savefig, show
-from numpy import histogram, array, zeros, zeros_like, where, sum
+from numpy import histogram, array, zeros, zeros_like, where, sum, round
 from numpy.ma import masked_equal, filled
 
 def apply_threshold(lb):
@@ -32,15 +32,11 @@ if __name__ == '__main__':
     axes[1][0].set_title('Histogram of Original Grayscale')
 
     # Histogram Equalization
-    cdf = y.cumsum() # cumulative sum
-    cdf_m = masked_equal(cdf, 0) # exclude 0
-    # Normalization:
-    # For each cdf_m element, subtract it with the minimum of cdf_m, multiply it with 255, and
-    # divide it with the range of cdf_m.
-    cdf_m = (cdf_m - cdf_m.min()) * 255 / (cdf_m.max() - cdf_m.min())
-    cdf = filled(cdf_m, 0).astype('uint8') # Give the 0 back.
+    pdf = y / sum(y)
+    y_normalized = pdf * 255
+    cdf = round(y_normalized.cumsum()).astype('uint8')
 
-    # Now, Histogram Equalization of cimg is cdf[cimg].
+    # Now, cdf can act like a map, so the Histogram Equalization of cimg is cdf[cimg].
     img = cdf[cimg]
     axes[0][1].imshow(cvtColor(img, COLOR_GRAY2RGB))
     axes[0][1].set_title('Equalized')
