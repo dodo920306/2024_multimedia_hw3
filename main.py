@@ -8,7 +8,7 @@ def apply_threshold(lb):
     global img
     _, timg = threshold(img, lb, 255, THRESH_BINARY)
     imshow('Edge Detection', timg)
-    imwrite('result2_without_turn_it_binary.png', img)
+    # imwrite('result2.png', timg)
 
 if __name__ == '__main__':
     cimg = imread(argv[1])
