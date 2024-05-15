@@ -111,6 +111,7 @@ After the image was histogram equalized, I apply Edge Detection by smoothing it,
             res[x, y] = (res_x + res_y) ** 0.5
 
     img = normalize(where(res > 255, 255, res).astype('uint8'), None, 0, 255, NORM_MINMAX)
+    ...
 ```
 
 ![](result2_without_turn_it_binary.png)
@@ -130,5 +131,12 @@ At this point, the only thing that is left to do is give it a threshold. Otherwi
 ![](result2_when_lower_bound_is_0.png)
 
 Don't worry. A track bar is provided below the picture on the window so you can slide it however you like to get the best result for you.
+
+```python
+    ...
+    namedWindow('Edge Detection')
+    createTrackbar('Lower Bound:', 'Edge Detection', 0, 255, apply_threshold)
+    apply_threshold(0)
+```
 
 ![](result2.png)
