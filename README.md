@@ -56,7 +56,7 @@ First, I simply read in the input image, show it, convert it to grayscale, and m
     axes[1][0].set_title('Histogram of Original Grayscale')
 ```
 
-Then, I apply the Histogram Equalization by
+Then, I apply the Histogram Equalization by pdf and cdf.
 
 ```python
     # Histogram Equalization
