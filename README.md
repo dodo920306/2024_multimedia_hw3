@@ -61,8 +61,6 @@ Then, I apply the Histogram Equalization.
 
 ```python
     cdf = y.cumsum() # cumulative sum
-    # For each cdf element, multiply it with the maximum of y, and divide it with the sum of the image.
-    cdf_normalized = cdf * float(y.max()) / cdf.max()
     cdf_m = masked_equal(cdf, 0) # exclude 0
     # Normalization:
     # For each cdf_m element, subtract it with the minimum of cdf_m, multiply it with 255, and
